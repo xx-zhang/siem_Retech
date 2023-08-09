@@ -1,0 +1,30 @@
+title: 安全运营
+hide: true
+
+nav:
+  - 基本介绍: secops_guide_0x01.md
+  - 安全运营思路: secops_02.md
+  - 运营工具:
+    - 终端杀软yara部署: yara-install.md
+    - 手册mindoc搭建: mindoc_v2_deploy.md
+    - Nmap命令: nmap_guide_01.md
+    - ivre搭建: ivre_install.md
+    - cuckoo部署: cookoo_install.md
+    - habo部署: habo_install.md
+    - 攻防演练搭建: ctfd_install.md
+    - 正向代理工具mitmproxy: mitmproxy_using.md
+    - poc&exp 积累: poc_exp_dd.md
+    - 穿透工具frp: frp_using.md
+    - DNS隧道和加密: dns-tunnel_01.md
+    - 常见扫描器和工具: scanner_recorder.md
+    - vuls扫描器搭建: vuls_guide_01.md
+    - MISP搭建使用: misp_using.md
+  - 项目记录:
+    - CT运营记录: cert_01.md
+    - JMR专题研究: JMR_rsc_01.md
+    - 渗透测试报告: pentest_guide_01.md
+  - 内部工具:
+    - 部门工具: bd_tools_01.md
+    - 全球流数据集: pcap_dataset_01.md
+  - 机器学习:
+    - 机器学习算法简述: machine_learning_01.md

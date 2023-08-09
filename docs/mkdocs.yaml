@@ -1,0 +1,116 @@
+site_name: 安全手册
+site_description: 安全手册
+site_author: xx-zhang
+nav_style: red
+
+shortcuts:
+  help: 191    # ?
+  next: 78     # n
+  previous: 80 # p
+  search: 83   # s
+
+
+#theme:
+#    name: mkdocs
+#    highlightjs: true
+#    hljs_languages:
+#        - yaml
+#        - python
+#        - shell
+#        - java
+#        - c
+#        - cpp
+#        - json
+#        - golang
+#        - javascript
+
+theme:
+#  name: readthedocs
+  name: material
+
+  palette:
+    - primary: red #顶部颜色
+    # Palette toggle for automatic mode
+    - media: "(prefers-color-scheme)"
+      toggle:
+        icon: material/brightness-auto
+        name: Switch to light mode
+
+    # Palette toggle for light mode
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+
+    # Palette toggle for dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      toggle:
+        icon: material/brightness-4
+        name: Switch to system preference
+  features:
+    #- navigation.instant # 点击内部链接时，不用全部刷新页面
+    - navigation.tracking # 在url中使用标题定位锚点
+    - navigation.tabs # 顶部显示导航顶层nav（也就是第一个节点）
+    - navigation.tabs.sticky # 滚动是隐藏顶部nav，需要配合navigation.tabs使用
+    - navigation.sections # nav节点缩进
+    - navigation.expand # 不折叠左侧nav节点
+    - navigation.indexes # 指定节点index pages ，跟instant不兼容
+    - toc.integrate # 右侧生产目录
+    - toc.integrate #导航集成
+    - navigation.top # 一键回顶部
+    - header.autohide
+    - search.share # 搜索分享
+    - search.suggest # 搜索建议
+    - search.highlight #搜索高亮
+
+markdown_extensions:
+  - admonition
+  - codehilite:
+      guess_lang: false
+      linenums: false
+  - toc:
+      permalink: true
+  - footnotes
+  - meta
+  - def_list
+  - pymdownx.arithmatex
+  - pymdownx.betterem:
+      smart_enable: all
+  - pymdownx.caret
+  - pymdownx.critic
+  - pymdownx.details
+  - pymdownx.emoji:
+      emoji_generator: !!python/name:pymdownx.emoji.to_png
+  - pymdownx.inlinehilite
+  - pymdownx.magiclink
+  - pymdownx.mark
+  - pymdownx.smartsymbols
+  - pymdownx.superfences
+  - pymdownx.tasklist
+  - pymdownx.tilde
+
+plugins:
+  - awesome-pages
+  - search:
+      separator: '[\s\-\.]+'
+
+extra:
+  generator: false  #删除页脚显示“使用 MkDocs 材料制造”
+#  social:
+#    - icon: fontawesome/brands/twitter
+#      link: https://twitter.com/wcowin_
+#    - icon: fontawesome/brands/github
+#      link: https://github.com/Wcowin
+#    - icon: fontawesome/brands/bilibili
+#      link: https://space.bilibili.com/actanble
+#    - icon: fontawesome/solid/paper-plane
+#      link: mailto:<actanble@gmail.com> #联系方式
+
+#nav:
+#  - Home: index.md
+#  - User Guide:
+#    - num_1: 1.md
+#    - num_2: 2.md
+#  - About: about.md
