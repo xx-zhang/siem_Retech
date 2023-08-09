@@ -25,11 +25,11 @@ shortcuts:
 #        - javascript
 
 theme:
-#  name: readthedocs
   name: material
+  # name: material
 
   palette:
-    - primary: red #顶部颜色
+    - primary: blue #顶部颜色
     # Palette toggle for automatic mode
     - media: "(prefers-color-scheme)"
       toggle:
@@ -49,6 +49,7 @@ theme:
       toggle:
         icon: material/brightness-4
         name: Switch to system preference
+
   features:
     #- navigation.instant # 点击内部链接时，不用全部刷新页面
     - navigation.tracking # 在url中使用标题定位锚点
@@ -93,8 +94,8 @@ markdown_extensions:
 
 plugins:
   - awesome-pages
-  - search:
-      separator: '[\s\-\.]+'
+  # - search:
+  #     separator: '[\s\-\.]+'
 
 extra:
   generator: false  #删除页脚显示“使用 MkDocs 材料制造”

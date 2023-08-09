@@ -1,5 +1,5 @@
 title: 安全运营
-hide: true
+; hide: true
 
 nav:
   - 基本介绍: secops_guide_0x01.md

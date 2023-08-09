@@ -8,3 +8,4 @@ mkdocs-awesome-pages-plugin
 mkdocs-localsearch
 mkdocs[i18n]
 mkdocs-redirects
+#mkdocs-rtd-dropdown==1.0.2
