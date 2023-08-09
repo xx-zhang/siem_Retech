@@ -1,1 +1,16 @@
 title: wazuh SIEM解决方案
+
+; nav:
+;     - 1: ./Chapter1-SIEM-guide
+;     - 2: ./Chapter2-wazuh-Install
+;     - 3: ./Chapter3-logging
+;     - 4: ./Chapter4-wazuh-sync
+;     - 5: ./Chapter5-file-monitor
+;     - 6: ./Chapter6-anti-virus
+;     - 7: ./Chapter7-security-baseline
+;     - 8: ./Chapter8-Command
+;     - 9: ./Chapter9-vulnerbility
+;     - 10: ./Chapter10-Defend
+;     - 11: ./Chapter11-security-audit
+;     - 12: ./Chapter12-UI
+
