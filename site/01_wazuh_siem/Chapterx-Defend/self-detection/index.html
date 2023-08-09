@@ -1,0 +1,3270 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="安全手册">
+      
+      
+        <meta name="author" content="xx-zhang">
+      
+      
+      
+        <link rel="prev" href="../../Chapter9-vulnerbility/9.1-vulner-scanner/">
+      
+      
+        <link rel="next" href="../../Chapterx1-security-audit/audit/">
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.2, mkdocs-material-9.1.21">
+    
+    
+      
+        <title>10. 主动防御 - 安全手册</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.eebd395e.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ecc896b0.min.css">
+      
+      
+
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="indigo">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#10" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="安全手册" class="md-header__button md-logo" aria-label="安全手册" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            安全手册
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              10. 主动防御
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+          
+            
+            
+            
+            <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="indigo"  aria-hidden="true"  type="radio" name="__palette" id="__palette_1">
+            
+          
+            
+            
+            
+            <input class="md-option" data-md-color-media="(prefers-color-scheme)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
+            
+              <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m14.3 16-.7-2h-3.2l-.7 2H7.8L11 7h2l3.2 9h-1.9M20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69m-9.15 3.96h2.3L12 9l-1.15 3.65Z"/></svg>
+              </label>
+            
+          
+            
+            
+            
+            <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_3">
+            
+              <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"/></svg>
+              </label>
+            
+          
+            
+            
+            
+            <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to system preference"  type="radio" name="__palette" id="__palette_4">
+            
+              <label class="md-header__button md-icon" title="Switch to system preference" for="__palette_3" hidden>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12c0-2.42-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"/></svg>
+              </label>
+            
+          
+        </form>
+      
+    
+    
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../00_security_research/secops_guide_0x01/" class="md-tabs__link">
+        安全运营
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../Chapter1-SIEM-guide/1.1-siem-guide/" class="md-tabs__link md-tabs__link--active">
+        01 wazuh siem
+      </a>
+    </li>
+  
+
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="安全手册" class="md-nav__button md-logo" aria-label="安全手册" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    安全手册
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+        
+      
+      <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_1" >
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="0">
+          安全运营
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_1">
+          <span class="md-nav__icon md-icon"></span>
+          安全运营
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../00_security_research/secops_guide_0x01/" class="md-nav__link">
+        基本介绍
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../00_security_research/secops_02/" class="md-nav__link">
+        安全运营思路
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+      
+      
+        
+      
+      <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_1_3" >
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_1_3" id="__nav_1_3_label" tabindex="0">
+          运营工具
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_1_3_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_1_3">
+          <span class="md-nav__icon md-icon"></span>
+          运营工具
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../00_security_research/yara-install/" class="md-nav__link">
+        终端杀软yara部署
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../00_security_research/mindoc_v2_deploy/" class="md-nav__link">
+        手册mindoc搭建
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../00_security_research/nmap_guide_01/" class="md-nav__link">
+        Nmap命令
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../00_security_research/ivre_install/" class="md-nav__link">
+        ivre搭建
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../00_security_research/cookoo_install/" class="md-nav__link">
+        cuckoo部署
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../00_security_research/habo_install/" class="md-nav__link">
+        habo部署
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../00_security_research/ctfd_install/" class="md-nav__link">
+        攻防演练搭建
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../00_security_research/mitmproxy_using/" class="md-nav__link">
+        正向代理工具mitmproxy
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../00_security_research/poc_exp_dd/" class="md-nav__link">
+        poc&exp 积累
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../00_security_research/frp_using/" class="md-nav__link">
+        穿透工具frp
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../00_security_research/dns-tunnel_01/" class="md-nav__link">
+        DNS隧道和加密
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../00_security_research/scanner_recorder/" class="md-nav__link">
+        常见扫描器和工具
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../00_security_research/vuls_guide_01/" class="md-nav__link">
+        vuls扫描器搭建
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../00_security_research/misp_using/" class="md-nav__link">
+        MISP搭建使用
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+      
+      
+        
+      
+      <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_1_4" >
+      
+      
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_1_4" id="__nav_1_4_label" tabindex="0">
+          项目记录
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_1_4_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_1_4">
+          <span class="md-nav__icon md-icon"></span>
+          项目记录
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../00_security_research/cert_01/" class="md-nav__link">
+        CT运营记录
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../00_security_research/JMR_rsc_01/" class="md-nav__link">
+        JMR专题研究
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../00_security_research/pentest_guide_01/" class="md-nav__link">
+        渗透测试报告
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+      
+      
+        
+      
+      <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_1_5" >
+      
+      
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_1_5" id="__nav_1_5_label" tabindex="0">
+          内部工具
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_1_5_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_1_5">
+          <span class="md-nav__icon md-icon"></span>
+          内部工具
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../00_security_research/bd_tools_01/" class="md-nav__link">
+        部门工具
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../00_security_research/pcap_dataset_01/" class="md-nav__link">
+        全球流数据集
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+      
+      
+        
+      
+      <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_1_6" >
+      
+      
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_1_6" id="__nav_1_6_label" tabindex="0">
+          机器学习
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_1_6_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_1_6">
+          <span class="md-nav__icon md-icon"></span>
+          机器学习
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../00_security_research/machine_learning_01/" class="md-nav__link">
+        机器学习算法简述
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+          01 wazuh siem
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          01 wazuh siem
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+      
+      
+        
+      
+      <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_1" >
+      
+      
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_2_1" id="__nav_2_1_label" tabindex="0">
+          Chapter1 SIEM guide
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2_1">
+          <span class="md-nav__icon md-icon"></span>
+          Chapter1 SIEM guide
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Chapter1-SIEM-guide/1.1-siem-guide/" class="md-nav__link">
+        1.1 siem简述
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Chapter1-SIEM-guide/1.2-selks/" class="md-nav__link">
+        1.2 selks方案
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+      
+      
+        
+      
+      <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_2" >
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+          Chapter2 wazuh Install
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2_2">
+          <span class="md-nav__icon md-icon"></span>
+          Chapter2 wazuh Install
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Chapter2-wazuh-Install/2.1-system-tech/" class="md-nav__link">
+        2.1 系统架构
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Chapter2-wazuh-Install/2.7-unstat-agent/" class="md-nav__link">
+        2.7 无状态代理
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+        
+      
+      <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_2_3" >
+      
+      
+        
+          
+            
+          
+        
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../Chapter2-wazuh-Install/2.2-wazuh-server/">2.2 wazuh server</a>
+          
+            <label for="__nav_2_2_3">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_2_3_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2_2_3">
+          <span class="md-nav__icon md-icon"></span>
+          2.2 wazuh server
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Chapter2-wazuh-Install/2.2-wazuh-server/2.2.1-centos7-install/" class="md-nav__link">
+        2.2.1 Centos 7安装
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Chapter2-wazuh-Install/2.2-wazuh-server/2.2.2-ubuntu-18.04-install/" class="md-nav__link">
+        2.2.2 Ubuntu 18.04安装
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+        
+      
+      <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_2_4" >
+      
+      
+        
+          
+            
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../Chapter2-wazuh-Install/2.3-wazuh-agent-install/">2.3 wazuh agent install</a>
+          
+            <label for="__nav_2_2_4">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_2_4_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2_2_4">
+          <span class="md-nav__icon md-icon"></span>
+          2.3 wazuh agent install
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Chapter2-wazuh-Install/2.3-wazuh-agent-install/2.3.1-centos-7-install/" class="md-nav__link">
+        2.3.1 Centos 7安装
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Chapter2-wazuh-Install/2.3-wazuh-agent-install/2.3.2-ubuntu-18.04-agent-install/" class="md-nav__link">
+        2.3.2 Ubuntu 18.04安装
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Chapter2-wazuh-Install/2.3-wazuh-agent-install/2.3.3-windows-install/" class="md-nav__link">
+        2.3.3 Windows安装
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+        
+      
+      <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_2_5" >
+      
+      
+        
+          
+            
+          
+        
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../Chapter2-wazuh-Install/2.4-server-sockert/">2.4 server sockert</a>
+          
+            <label for="__nav_2_2_5">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_2_5_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2_2_5">
+          <span class="md-nav__icon md-icon"></span>
+          2.4 server sockert
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Chapter2-wazuh-Install/2.4-server-sockert/2.4.1-linux-server-socket/" class="md-nav__link">
+        2.4.1 LINUX系统通信
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Chapter2-wazuh-Install/2.4-server-sockert/2.4.2-windows-sockert/" class="md-nav__link">
+        2.4.2 Windows系统通信
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+        
+      
+      <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_2_6" >
+      
+      
+        
+          
+            
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../Chapter2-wazuh-Install/2.5-puppet-muti-install/">2.5 puppet muti install</a>
+          
+            <label for="__nav_2_2_6">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_2_6_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2_2_6">
+          <span class="md-nav__icon md-icon"></span>
+          2.5 puppet muti install
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Chapter2-wazuh-Install/2.5-puppet-muti-install/2.5.1-puppet-server-an-zhuang/" class="md-nav__link">
+        2.5.1 puppet server安装
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Chapter2-wazuh-Install/2.5-puppet-muti-install/2.5.2-wazuh-guan-li-duan-an-zhuang/" class="md-nav__link">
+        2.5.2 wazuh管理端安装
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Chapter2-wazuh-Install/2.5-puppet-muti-install/2.5.3-ubuntu-dai-li-duan-an-zhuang/" class="md-nav__link">
+        2.5.3 Ubuntu代理端安装
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Chapter2-wazuh-Install/2.5-puppet-muti-install/2.5.4-windows-dai-li-duan-an-zhuang/" class="md-nav__link">
+        2.5.4 Windows代理端安装
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Chapter2-wazuh-Install/2.5-puppet-muti-install/2.5.5-wazuh-can-shu/" class="md-nav__link">
+        2.5.5 wazuh参数
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+        
+      
+      <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_2_7" >
+      
+      
+        
+          
+            
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../Chapter2-wazuh-Install/2.6-ansible-pi-liang-bu-shu/">2.6 ansible pi liang bu shu</a>
+          
+            <label for="__nav_2_2_7">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_2_7_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2_2_7">
+          <span class="md-nav__icon md-icon"></span>
+          2.6 ansible pi liang bu shu
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Chapter2-wazuh-Install/2.6-ansible-pi-liang-bu-shu/2.6.1-ansible-linux-an-zhuang/" class="md-nav__link">
+        2.6.1  ansible Linux 安装
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Chapter2-wazuh-Install/2.6-ansible-pi-liang-bu-shu/2.6.2-ansible-windows-an-zhuang/" class="md-nav__link">
+        2.6.2 ansible windows安装
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Chapter2-wazuh-Install/2.6-ansible-pi-liang-bu-shu/2.6.3-wazuh-can-shu/" class="md-nav__link">
+        2.6.3 wazuh参数
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+      
+      
+        
+      
+      <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_3" >
+      
+      
+        
+          
+            
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../Chapter3-logging/">Chapter3 logging</a>
+          
+            <label for="__nav_2_3">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2_3">
+          <span class="md-nav__icon md-icon"></span>
+          Chapter3 logging
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+        
+      
+      <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_3_2" >
+      
+      
+        
+          
+            
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../Chapter3-logging/3.1-wazuh-log-collector/">3.1 wazuh log collector</a>
+          
+            <label for="__nav_2_3_2">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_3_2_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2_3_2">
+          <span class="md-nav__icon md-icon"></span>
+          3.1 wazuh log collector
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Chapter3-logging/3.1-wazuh-log-collector/3.1-agent_logger/" class="md-nav__link">
+        3.1 代理端收集日志
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Chapter3-logging/3.1-wazuh-log-collector/3.1.1-linux-log-collection/" class="md-nav__link">
+        3.1.1 Linux日志收集
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Chapter3-logging/3.1-wazuh-log-collector/3.1.2-windows-log-collection/" class="md-nav__link">
+        3.1.2 windows日志收集
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Chapter3-logging/3.1-wazuh-log-collector/3.1.3-remote-log-collecter/" class="md-nav__link">
+        3.1.3 远程日志收集
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+        
+      
+      <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_3_3" >
+      
+      
+        
+          
+            
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../Chapter3-logging/3.2-elfk-install-guide/">3.2 elfk install guide</a>
+          
+            <label for="__nav_2_3_3">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_3_3_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2_3_3">
+          <span class="md-nav__icon md-icon"></span>
+          3.2 elfk install guide
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Chapter3-logging/3.2-elfk-install-guide/3.2.1-elasticsearch/" class="md-nav__link">
+        3.2.1 elasticsearch
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Chapter3-logging/3.2-elfk-install-guide/3.2.2-filebeat/" class="md-nav__link">
+        3.2.2 filebeat
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Chapter3-logging/3.2-elfk-install-guide/3.2.3-kibana/" class="md-nav__link">
+        3.2.3 kibana
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Chapter3-logging/3.2-elfk-install-guide/3.2.4-logstash/" class="md-nav__link">
+        3.2.4 Logstash
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Chapter3-logging/3.2-elfk-install-guide/3.3-elfk-install/" class="md-nav__link">
+        3.3 ELFFK安装配置（开源）
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+        
+      
+      <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_3_4" >
+      
+      
+        
+          
+            
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../Chapter3-logging/3.4-splunk-install-guide/">3.4 splunk install guide</a>
+          
+            <label for="__nav_2_3_4">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_3_4_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2_3_4">
+          <span class="md-nav__icon md-icon"></span>
+          3.4 splunk install guide
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Chapter3-logging/3.4-splunk-install-guide/3.3.1-splunk-server/" class="md-nav__link">
+        3.3.1 splunk server
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Chapter3-logging/3.4-splunk-install-guide/3.3.2-splunk-forward/" class="md-nav__link">
+        3.3.3 splunk forward
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Chapter3-logging/3.4-splunk-install-guide/3.3.3-splunk-wazuh-app/" class="md-nav__link">
+        3.3.2 splunk wazuh app
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Chapter3-logging/3.4-splunk-install-guide/3.4-splunk-install-guide/" class="md-nav__link">
+        3.4 splunk安装配置
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Chapter3-logging/3.4-splunk-install-guide/3.4-syslog-export/" class="md-nav__link">
+        3.4 syslog导出
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+        
+      
+      <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_3_5" >
+      
+      
+        
+          
+            
+          
+        
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../Chapter3-logging/3.5-elk-install/">3.5 elk install</a>
+          
+            <label for="__nav_2_3_5">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_3_5_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2_3_5">
+          <span class="md-nav__icon md-icon"></span>
+          3.5 elk install
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Chapter3-logging/3.5-elk-install/3.5.1-http-ren-zheng/" class="md-nav__link">
+        3.5.1 HTTP认证
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Chapter3-logging/3.5-elk-install/3.5.2-https-ren-zheng/" class="md-nav__link">
+        3.5.2 HTTPS认证
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+        
+      
+      <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_3_6" >
+      
+      
+        
+          
+            
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../Chapter3-logging/3.6-wazuh-authentication/">3.6 wazuh authentication</a>
+          
+            <label for="__nav_2_3_6">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_3_6_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2_3_6">
+          <span class="md-nav__icon md-icon"></span>
+          3.6 wazuh authentication
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Chapter3-logging/3.6-wazuh-authentication/3.6.1-server-client-socket/" class="md-nav__link">
+        3.6.1 管理端与代理端通信
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Chapter3-logging/3.6-wazuh-authentication/3.6.2-wazuh-api-auth/" class="md-nav__link">
+        3.6.2 wazuhAPI认证
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Chapter3-logging/3.6-wazuh-authentication/3.6.3-wazuh-log-authentication/" class="md-nav__link">
+        3.6 wazuh鉴权机制
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+      
+      
+        
+      
+      <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_4" >
+      
+      
+        
+          
+            
+          
+        
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../Chapter4-wazuh-sync/">Chapter4 wazuh sync</a>
+          
+            <label for="__nav_2_4">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2_4">
+          <span class="md-nav__icon md-icon"></span>
+          Chapter4 wazuh sync
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Chapter4-wazuh-sync/4.1-wazuh-tong-bu/" class="md-nav__link">
+        4.1 wazuh共享
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Chapter4-wazuh-sync/4.2-wazuh-ji-qun/" class="md-nav__link">
+        4.2 wazuh集群
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+      
+      
+        
+      
+      <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_5" >
+      
+      
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_2_5" id="__nav_2_5_label" tabindex="0">
+          Chapter5 file monitor
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_5_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2_5">
+          <span class="md-nav__icon md-icon"></span>
+          Chapter5 file monitor
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Chapter5-file-monitor/5.1-func-desc/" class="md-nav__link">
+        5.1 功能描述
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Chapter5-file-monitor/5.2-using-guide/" class="md-nav__link">
+        5.2 实战操作
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+      
+      
+        
+      
+      <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_6" >
+      
+      
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_2_6" id="__nav_2_6_label" tabindex="0">
+          Chapter6 anti virus
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_6_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2_6">
+          <span class="md-nav__icon md-icon"></span>
+          Chapter6 anti virus
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Chapter6-anti-virus/6.1-local-rules/" class="md-nav__link">
+        6.1 本地规则检测
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Chapter6-anti-virus/6.2-vt-detect/" class="md-nav__link">
+        6.2 VirusTotal检测
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Chapter6-anti-virus/6.3-clamav-yara/" class="md-nav__link">
+        6.3 clamav检测
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+      
+      
+        
+      
+      <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_7" >
+      
+      
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_2_7" id="__nav_2_7_label" tabindex="0">
+          Chapter7 security baseline
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_7_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2_7">
+          <span class="md-nav__icon md-icon"></span>
+          Chapter7 security baseline
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Chapter7-security-baseline/7.1-sca/" class="md-nav__link">
+        7.1 SCA
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Chapter7-security-baseline/hids-baseline/" class="md-nav__link">
+        7. 安全基线检测
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+      
+      
+        
+      
+      <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_8" >
+      
+      
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_2_8" id="__nav_2_8_label" tabindex="0">
+          Chapter8 Command
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_8_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2_8">
+          <span class="md-nav__icon md-icon"></span>
+          Chapter8 Command
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Chapter8-Command/command_monitor/" class="md-nav__link">
+        8. 命令内容监控
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+      
+      
+        
+      
+      <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_9" >
+      
+      
+        
+          
+            
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../Chapter9-vulnerbility/">Chapter9 vulnerbility</a>
+          
+            <label for="__nav_2_9">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_9_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2_9">
+          <span class="md-nav__icon md-icon"></span>
+          Chapter9 vulnerbility
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Chapter9-vulnerbility/9.1-vulner-scanner/" class="md-nav__link">
+        9.1 配置漏洞扫描
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_10" checked>
+      
+      
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_2_10" id="__nav_2_10_label" tabindex="0">
+          Chapterx Defend
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_10_label" aria-expanded="true">
+        <label class="md-nav__title" for="__nav_2_10">
+          <span class="md-nav__icon md-icon"></span>
+          Chapterx Defend
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          10. 主动防御
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        10. 主动防御
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    管理端配置文件
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+      
+      
+        
+      
+      <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_11" >
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_2_11" id="__nav_2_11_label" tabindex="0">
+          Chapterx1 security audit
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_11_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2_11">
+          <span class="md-nav__icon md-icon"></span>
+          Chapterx1 security audit
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Chapterx1-security-audit/audit/" class="md-nav__link">
+        audit
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Chapterx1-security-audit/osquery/" class="md-nav__link">
+        osquery
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Chapterx1-security-audit/sysmon/" class="md-nav__link">
+        sysmon
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+        
+      
+      <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_11_4" >
+      
+      
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_2_11_4" id="__nav_2_11_4_label" tabindex="0">
+          Alerts guide
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_11_4_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2_11_4">
+          <span class="md-nav__icon md-icon"></span>
+          Alerts guide
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Chapterx1-security-audit/alerts-guide/custom-alert/" class="md-nav__link">
+        自定义告警
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Chapterx1-security-audit/alerts-guide/esalert-guide/" class="md-nav__link">
+        ESalert告警
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Chapterx1-security-audit/alerts-guide/wazuh-mail-alert/" class="md-nav__link">
+        wazuh邮件告警
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+      
+      
+        
+      
+      <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_12" >
+      
+      
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_2_12" id="__nav_2_12_label" tabindex="0">
+          Chapterx2 UI
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_12_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2_12">
+          <span class="md-nav__icon md-icon"></span>
+          Chapterx2 UI
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Chapterx2-UI/grafana/" class="md-nav__link">
+        grafana
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Chapterx2-UI/kibana/" class="md-nav__link">
+        kibana
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Chapterx2-UI/splunk/" class="md-nav__link">
+        splunk
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="10">10. 主动防御<a class="headerlink" href="#10" title="Permanent link">&para;</a></h1>
+<p>主动防御是基于威胁对象触发的规则告警而进行主动拦截的行为，防御威胁对象继续对代理端进行攻击。</p>
+<p>要触发主动防御，主要有两个流程：</p>
+<ol>
+<li>修改管理端配置文件，开启主动防御模式。</li>
+<li>使用拦截脚本，定义拦截方式和拦截频率次数。</li>
+</ol>
+<h2 id="_1">管理端配置文件<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<p>说明一下主动防御这些标签作用。</p>
+<table>
+  <thead>
+    <tr>
+      <th style="text-align:center">&#x6807;&#x7B7E;</th>
+      <th style="text-align:left">&#x4F5C;&#x7528;</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align:center">command</td>
+      <td style="text-align:left">&#x5B9A;&#x4E49;&#x8981;&#x4F7F;&#x7528;&#x7684;&#x62E6;&#x622A;&#x811A;&#x672C;&#x3002;</td>
+    </tr>
+    <tr>
+      <td style="text-align:center">location</td>
+      <td style="text-align:left">
+        <p>&#x5B9A;&#x4E49;&#x89E6;&#x53D1;&#x89C4;&#x5219;&#x7684;&#x4F4D;&#x7F6E;&#xFF0C;&#x5176;&#x4E2D;&#x6709;&#x56DB;&#x79CD;&#x9009;&#x578B;&#xFF1A;local&#x3001;server&#x3001;&#x67D0;&#x4EE3;&#x7406;&#x7AEF;ID&#x53F7;&#xFF0C;all&#x3002;</p>
+        <p><b>local</b>&#xFF1A;&#x89E6;&#x53D1;&#x89C4;&#x5219;&#x53EA;&#x5F71;&#x54CD;&#x5F53;&#x524D;&#x4EE3;&#x7406;&#x7AEF;&#x3002;</p>
+        <p><b>server</b>: &#x89E6;&#x53D1;&#x89C4;&#x5219;&#x5F71;&#x54CD;&#x7BA1;&#x7406;&#x7AEF;&#x3002;</p>
+        <p>&#x67D0;&#x4EE3;&#x7406;&#x7AEF;ID&#x53F7;: &#x89E6;&#x53D1;&#x89C4;&#x5219;&#x5F71;&#x54CD;&#x67D0;&#x4EE3;&#x7406;&#x7AEF;&#x3002;</p>
+        <p><b>all</b>: &#x89E6;&#x53D1;&#x89C4;&#x5219;&#x5F71;&#x54CD;&#x6240;&#x6709;&#x4EE3;&#x7406;&#x7AEF;&#xFF0C;<b>&#x7B49;&#x4E8E;&#x5168;&#x5C40;&#x5C01;&#x7981;</b>&#x3002;</p>
+      </td>
+    </tr>
+    <tr>
+      <td style="text-align:center">rules_id</td>
+      <td style="text-align:left">&#x5B9A;&#x4E49;&#x89E6;&#x53D1;&#x4E3B;&#x52A8;&#x9632;&#x5FA1;&#x7684;&#x89C4;&#x5219;ID&#x53F7;</td>
+    </tr>
+    <tr>
+      <td style="text-align:center">timeout</td>
+      <td style="text-align:left">&#x5B9A;&#x4E49;&#x4E3B;&#x52A8;&#x9632;&#x5FA1;&#x5468;&#x671F;&#x65F6;&#x95F4;&#x3002;</td>
+    </tr>
+    <tr>
+      <td style="text-align:center">level</td>
+      <td style="text-align:left">&#x5B9A;&#x4E49;&#x89E6;&#x53D1;&#x4E3B;&#x52A8;&#x9632;&#x5FA1;&#x7684;&#x544A;&#x8B66;&#x7B49;&#x7EA7;&#x3002;</td>
+    </tr>
+    <tr>
+      <td style="text-align:center">rules_group</td>
+      <td style="text-align:left">&#x5B9A;&#x4E49;&#x89E6;&#x53D1;&#x4E3B;&#x52A8;&#x9632;&#x5FA1;&#x7684;&#x89C4;&#x5219;&#x7EC4;&#xFF0C;&#x591A;&#x4E2A;&#x89C4;&#x5219;&#x7EC4;&#x4F7F;&#x7528; <b><code>|</code></b> &#x5206;&#x5272;&#x3002;</td>
+    </tr>
+    <tr>
+      <td style="text-align:center">repeated_offenders</td>
+      <td style="text-align:left">&#x5B9A;&#x4E49;&#x5A01;&#x80C1;&#x5BF9;&#x8C61;&#x591A;&#x6B21;&#x653B;&#x51FB;&#x7684;&#x65F6;&#x95F4;&#x9012;&#x589E;&#x5217;&#x8868;&#xFF0C;&#x6700;&#x591A;&#x53EF;&#x4EE5;&#x8BBE;&#x7F6E;5&#x4E2A;&#x9012;&#x589E;&#x60C5;&#x51B5;&#x3002;</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>主动防御默认有以下的拦截脚本。</p>
+<div class="highlight"><pre><span></span><code>[root@wazuh-manager opt]# ls -l /var/ossec/active-response/bin/
+total 88
+-rwxr-x---. 1 root ossec  6746 Apr 22 09:39 default-firewall-drop.sh
+-rwxr-x---. 1 root ossec  1750 Apr 22 09:39 disable-account.sh
+-rwxr-x---. 1 root ossec  3990 Apr 22 09:39 firewalld-drop.sh
+-rwxr-x---. 1 root ossec  6746 Apr 22 09:39 firewall-drop.sh
+-rwxr-x---. 1 root ossec  3577 Apr 22 09:39 host-deny.sh
+-rwxr-x---. 1 root ossec   838 Apr 22 09:39 ip-customblock.sh
+-rwxr-x---. 1 root ossec  1622 Apr 22 09:39 ipfw_mac.sh
+-rwxr-x---. 1 root ossec  1423 Apr 22 09:39 ipfw.sh
+-rwxr-x---. 1 root ossec 14435 Apr 22 09:39 kaspersky.py
+-rwxr-x---. 1 root ossec   714 Apr 22 09:39 kaspersky.sh
+-rwxr-x---. 1 root ossec  1344 Apr 22 09:39 npf.sh
+-rwxr-x---. 1 root ossec  1674 Apr 22 09:39 ossec-slack.sh
+-rwxr-x---. 1 root ossec  1674 Apr 22 09:39 ossec-tweeter.sh
+-rwxr-x---. 1 root ossec  1987 Apr 22 09:39 pf.sh
+-rwxr-x---. 1 root ossec   580 Apr 22 09:39 restart-ossec.sh
+-rwxr-x---. 1 root ossec  1047 Apr 22 09:39 restart.sh
+-rwxr-x---. 1 root ossec  1220 Apr 22 09:39 route-null.sh
+</code></pre></div>
+<p><code>host-deny.sh</code>脚本主要将来源IP地址加入到<code>/etc/hosts.deny</code>文件里面，Linux系统就会禁止来源IP地址访问。</p>
+<div class="highlight"><pre><span></span><code>[root@wazuh-manager opt]# cat /var/ossec/active-response/bin/host-deny.sh 
+#!/bin/sh
+# Adds an IP to the /etc/hosts.deny file
+# Requirements: sshd and other binaries with tcp wrappers support
+# Expect: srcip
+# Copyright (C) 2015-2020, Wazuh Inc.
+# Author: Daniel B. Cid
+# Last modified: Nov 09, 2005
+
+ACTION=$1
+USER=$2
+IP=$3
+
+LOCAL=`dirname $0`;
+cd $LOCAL
+cd ../
+PWD=`pwd`
+LOCK=&quot;${PWD}/host-deny-lock&quot;
+LOCK_PID=&quot;${PWD}/host-deny-lock/pid&quot;
+UNAME=`uname`
+
+
+# This number should be more than enough (even if a hundred
+# instances of this script is ran together). If you have
+# a really loaded env, you can increase it to 75 or 100.
+MAX_ITERATION=&quot;50&quot;
+
+
+# Lock function
+lock()
+{
+    i=0;
+    # Providing a lock.
+    while [ 1 ]; do
+        mkdir ${LOCK} &gt; /dev/null 2&gt;&amp;1
+        MSL=$?
+        if [ &quot;${MSL}&quot; = &quot;0&quot; ]; then
+            # Lock acquired (setting the pid)
+            echo &quot;$$&quot; &gt; ${LOCK_PID}
+            return;
+        fi
+
+        # Getting currently/saved PID locking the file
+        C_PID=`cat ${LOCK_PID} 2&gt;/dev/null`
+        if [ &quot;x&quot; = &quot;x${S_PID}&quot; ]; then
+            S_PID=${C_PID}
+        fi
+
+        # Breaking out of the loop after X attempts
+        if [ &quot;x${C_PID}&quot; = &quot;x${S_PID}&quot; ]; then
+            i=`expr $i + 1`;
+        fi
+
+        sleep $i;
+
+        i=`expr $i + 1`;
+
+        # So i increments 2 by 2 if the pid does not change.
+        # If the pid keeps changing, we will increments one
+        # by one and fail after MAX_ITERACTION
+        if [ &quot;$i&quot; = &quot;${MAX_ITERATION}&quot; ]; then
+            echo &quot;`date` Unable to execute. Locked: $0&quot; \
+                        &gt;&gt; ${PWD}/ossec-hids-responses.log
+
+            # Unlocking and exiting
+            unlock;
+            exit 1;
+        fi
+    done
+}
+
+# Unlock function
+unlock()
+{
+    rm -rf ${LOCK}
+}
+
+
+# Logging the call
+echo &quot;`date` $0 $1 $2 $3 $4 $5&quot; &gt;&gt; ${PWD}/../logs/active-responses.log
+
+
+# IP Address must be provided
+if [ &quot;x${IP}&quot; = &quot;x&quot; ]; then
+    echo &quot;$0: Missing argument &lt;action&gt; &lt;user&gt; (ip)&quot;
+    exit 1;
+fi
+
+
+# Checking for invalid entries (lacking &quot;.&quot; or &quot;:&quot;, etc)
+echo &quot;${IP}&quot; | egrep &quot;\.|\:&quot; &gt; /dev/null 2&gt;&amp;1
+if [ ! $? = 0 ]; then
+    echo &quot;`date` Invalid ip/hostname entry: ${IP}&quot; &gt;&gt; ${PWD}/../logs/active-responses.log
+    exit 1;
+fi
+
+
+# Adding the ip to hosts.deny
+if [ &quot;x${ACTION}&quot; = &quot;xadd&quot; ]; then
+    # Looking for duplication
+    IPKEY=$(grep -w &quot;${IP}&quot; /etc/hosts.deny)
+    if [ ! -z &quot;$IPKEY&quot; ]; then
+        echo &quot;IP ${IP} already exists on host.deny...&quot; &gt;&gt; ${PWD}/../logs/active-responses.log
+        exit 1
+    fi
+    lock;
+    echo &quot;${IP}&quot; | grep &quot;\:&quot; &gt; /dev/null 2&gt;&amp;1
+    if [ $? = 0 ]; then
+        IP=&quot;[${IP}]&quot;
+    fi
+    if [ &quot;X$UNAME&quot; = &quot;XFreeBSD&quot; ]; then
+        echo &quot;ALL : ${IP} : deny&quot; &gt;&gt; /etc/hosts.allow
+    else
+        echo &quot;ALL:${IP}&quot; &gt;&gt; /etc/hosts.deny
+    fi
+    unlock;
+    exit 0;
+
+
+# Deleting from hosts.deny
+elif [ &quot;x${ACTION}&quot; = &quot;xdelete&quot; ]; then
+    lock;
+    TMP_FILE=`mktemp ${PWD}/ossec-hosts.XXXXXXXXXX`
+    if [ &quot;X${TMP_FILE}&quot; = &quot;X&quot; ]; then
+        # Cheap fake tmpfile, but should be harder then no random data
+        TMP_FILE=&quot;${PWD}/ossec-hosts.`cat /dev/urandom | tr -dc &#39;a-zA-Z0-9&#39; | fold -w 32 | head -1 `&quot;
+    fi
+    echo &quot;${IP}&quot; | grep &quot;\:&quot; &gt; /dev/null 2&gt;&amp;1
+    if [ $? = 0 ]; then
+        IP=&quot;\[${IP}\]&quot;
+    fi
+    if [ &quot;X$UNAME&quot; = &quot;XFreeBSD&quot; ]; then
+        cat /etc/hosts.allow | grep -v &quot;ALL : ${IP} : deny$&quot;&gt; ${TMP_FILE}
+        mv ${TMP_FILE} /etc/hosts.allow
+    else
+        cat /etc/hosts.deny | grep -v &quot;ALL:${IP}$&quot;&gt; ${TMP_FILE}
+        cat ${TMP_FILE} &gt; /etc/hosts.deny
+        rm ${TMP_FILE}
+    fi
+    unlock;
+    exit 0;
+
+
+# Invalid action
+else
+    echo &quot;$0: invalid action: ${ACTION}&quot;
+fi
+
+exit 1;
+</code></pre></div>
+<p>这里配置文件例子就是使用了<code>host-deny.sh</code>拦截脚本，在<code>command</code>标签定义<code>host-deny</code>，提取来源IP地址，并且设置可以自动解锁封禁（<code>timeout_allowed</code>）。当触发规则为<code>5716</code>的时候，就会使用<code>host-deny</code>，并且封禁范围是当前代理端，封禁时间为600秒。</p>
+<div class="highlight"><pre><span></span><code>[root@wazuh-manager opt]# cat  /var/ossec/etc/ossec.conf
+
+  &lt;command&gt;
+    &lt;name&gt;host-deny&lt;/name&gt;
+    &lt;executable&gt;host-deny.sh&lt;/executable&gt;
+    &lt;expect&gt;srcip&lt;/expect&gt;
+    &lt;timeout_allowed&gt;yes&lt;/timeout_allowed&gt;
+  &lt;/command&gt;
+
+  &lt;active-response&gt;
+    &lt;command&gt;host-deny&lt;/command&gt;
+    &lt;location&gt;local&lt;/location&gt;
+    &lt;rules_id&gt;5716&lt;/rules_id&gt;
+    &lt;timeout&gt;600&lt;/timeout&gt;
+  &lt;/active-response&gt;
+</code></pre></div>
+<p>使用kali ssh到centos代理端，第一次连接输入错误的密码，第二次重连就会发现被代理端重置连接。</p>
+<p><img alt="" src=".gitbook/assets/image%20%28159%29.png" /></p>
+<p>查看<code>/etc/hosts.deny</code>文件，就会发现攻击IP被添加上去。</p>
+<div class="highlight"><pre><span></span><code>[root@wazuh-centos-agent ~]# cat /etc/hosts.deny 
+#
+# hosts.deny    This file contains access rules which are used to
+#       deny connections to network services that either use
+#       the tcp_wrappers library or that have been
+#       started through a tcp_wrappers-enabled xinetd.
+#
+#       The rules in this file can also be set up in
+#       /etc/hosts.allow with a &#39;deny&#39; option instead.
+#
+#       See &#39;man 5 hosts_options&#39; and &#39;man 5 hosts_access&#39;
+#       for information on rule syntax.
+#       See &#39;man tcpd&#39; for information on tcp_wrappers
+#
+ALL:192.168.1.130
+</code></pre></div>
+<p>查看主动防御的日志，就会发现攻击IP（192.168.1.130），攻击时间（1626705265.17483312），触发拦截规则（5716）。</p>
+<div class="highlight"><pre><span></span><code>[root@wazuh-centos-agent ~]# cat /var/ossec/logs/active-responses.log 
+Mon Jul 19 10:34:25 EDT 2021 /var/ossec/active-response/bin/host-deny.sh add - 192.168.1.130 1626705265.17483312 5716
+</code></pre></div>
+<p>等待600秒之后，再次查看主动防御日志，就会看到来源IP地址会自动解禁。</p>
+<div class="highlight"><pre><span></span><code>[root@wazuh-centos-agent ~]# cat /var/ossec/logs/active-responses.log 
+Mon Jul 19 10:34:25 EDT 2021 /var/ossec/active-response/bin/host-deny.sh add - 192.168.1.130 1626705265.17483312 5716
+Mon Jul 19 10:44:32 EDT 2021 /var/ossec/active-response/bin/host-deny.sh delete - 192.168.1.130 1626705265.17483312 5716
+</code></pre></div>
+<p>查看管理端代理日志，找到关于5716的告警，显示的是ssh验证失败。</p>
+<p><img alt="" src=".gitbook/assets/image%20%28160%29.png" /></p>
+<p>细心的朋友可能发现了，上面这么严格规则（输入错误一次就封禁），在生产环境的时候，访问SSH输入错误的密码是常见的行为，要是应用了这种规则，怕是要直接炸了，所以需要**引入允许错误次数机制**。</p>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+            Back to top
+          </button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tracking", "navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.expand", "navigation.indexes", "toc.integrate", "toc.integrate", "navigation.top", "header.autohide", "search.share", "search.suggest", "search.highlight"], "search": "../../../assets/javascripts/workers/search.74e28a9f.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.220ee61c.min.js"></script>
+      
+    
+  </body>
+</html>
